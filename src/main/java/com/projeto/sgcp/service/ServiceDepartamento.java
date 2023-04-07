@@ -2,17 +2,15 @@ package com.projeto.sgcp.service;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.projeto.sgcp.Exception.RegraNegocio;
 import com.projeto.sgcp.entidade.Departamento;
 import com.projeto.sgcp.enuns.Status;
 import com.projeto.sgcp.repositorio.DepartamentoRepositorio;
+import com.projeto.sgcp.utilitarios.Utils;
 
 @Service
 public class ServiceDepartamento {
@@ -20,22 +18,25 @@ public class ServiceDepartamento {
 	@Autowired
 	private DepartamentoRepositorio depRepositorio;
 
+	@Autowired
+	private Utils utils;
+	
 	@Transactional
-	public Departamento salvarDadosDepartamento(Departamento departamento) {
+	public Departamento SalvarDadosDepartamento(Departamento departamento) {
 
 		departamento.setStatusDep(Status.ATIVO);
 
-		validarCamposDepartamento(departamento);
+		utils.ValidarCamposDepartamento(departamento);
 		
-		validaStringDepartamento(departamento.getNmDepartamento());
+		utils.validaStringDepartamento(departamento.getNmDepartamento());
 
-		buscarDepartamento(departamento.getNmDepartamento());
+		BuscarDepartamento(departamento.getNmDepartamento());
 
 		return depRepositorio.save(departamento);
 	}
 
 	@Transactional
-	public Departamento removerDepartamento(Departamento departamento) {
+	public Departamento RemoverDepartamento(Departamento departamento) {
 
 		departamento.setStatusDep(Status.INATIVO);
 		return depRepositorio.save(departamento);
@@ -43,49 +44,34 @@ public class ServiceDepartamento {
 	}
 
 	@Transactional
-	public Departamento autualizarDadosDepartamento(Departamento departamento, String nome) {
+	public Departamento AutualizarDadosDepartamento(Departamento departamento, String nome) {
 
 		Objects.requireNonNull(departamento.getCodigoDepartamento());
 
-		validarCamposDepartamento(departamento);
+		utils.ValidarCamposDepartamento(departamento);
 
-		validaStringDepartamento(nome);
+		utils.validaStringDepartamento(nome);
 
 		return depRepositorio.save(departamento);
 
 	}
 
 	@Transactional(readOnly = true)
-	public List<Departamento> listarDepartamento() {
+	public List<Departamento> ListarDepartamento() {
 		return depRepositorio.findAll();
 	}
 
-	public void validarCamposDepartamento(Departamento departamento) {
-
-		if (departamento.getNmDepartamento() == null || departamento.getNmDepartamento().trim().equals("")) {
-
-			throw new RegraNegocio("O nome departamento é obrigatório");
-		}
-
-	}
+	
 
 	@Transactional
-	public Departamento buscarDepartamento(String departamento) {
+	public Departamento BuscarDepartamento(String departamento) {
 		return depRepositorio.findByNmDepartamento(departamento);
 	}
 
 	@Transactional
-	public Departamento buscarPorCodigo(Long codigoDep) {
+	public Departamento BuscarPorCodigo(Long codigoDep) {
 		return depRepositorio.findBycodigoDepartamento(codigoDep);
 	}
-
-	public void validaStringDepartamento(String departamento) {
-		
-		if (!departamento.matches("[A-Za-z]*")) {
-			
-			//(!departamento.substring(0, 15).matches("[A-Za-z]*"))
-
-			throw new RegraNegocio("Erro ao cadastrar, nome do departamento não pode constar numeros ou caracteres");
-		}
-	}
 }
+
+	
