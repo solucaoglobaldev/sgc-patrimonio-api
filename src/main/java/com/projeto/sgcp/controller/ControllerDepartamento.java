@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,14 @@ import com.projeto.sgcp.repositorio.DepartamentoRepositorio;
 import com.projeto.sgcp.service.ServiceDepartamento;
 import com.projeto.sgcp.utilitarios.UtilsDTO;
 
-@RequestMapping("/departamentos")
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@RequestMapping("api/departamentos")
 @RestController
+@Api(value="API REST Departamento")
+@CrossOrigin(origins="*")
+
 public class ControllerDepartamento {
 
 	@Autowired
@@ -32,7 +39,8 @@ public class ControllerDepartamento {
 	@Autowired
 	private UtilsDTO utilsDTO;
 	
-	@PostMapping("adicionar")
+	@PostMapping("adicionar")	
+	@ApiOperation(value="Adicionar Departamentos")
 	public ResponseEntity adicionar(@RequestBody DepartamentoDTO DTOdepartamento) {
 
 		Departamento departamento = Departamento.builder().nmDepartamento(DTOdepartamento.getNmDepartamento()).build();
@@ -59,6 +67,7 @@ public class ControllerDepartamento {
 	}
 
 	@PutMapping("atulizarDepartamento/{codigoDp}")
+	@ApiOperation(value="Atualiza Departamentos")
 	public ResponseEntity AtulizarDepartamento(@PathVariable Long codigoDp, @RequestBody Departamento departamento) {
 
 		Departamento depAtual = servicoDepartamento.BuscarPorCodigo(codigoDp);
@@ -77,6 +86,7 @@ public class ControllerDepartamento {
 	}
 
 	@GetMapping("buscarPorCodigo/{codigo}")
+	@ApiOperation(value="Busca Departamentos por Codigo")
 	public DepartamentoDTO buscarPorCodigo(@PathVariable Long codigo) {
 		Departamento depEncontrado = servicoDepartamento.BuscarPorCodigo(codigo);
 
@@ -86,6 +96,7 @@ public class ControllerDepartamento {
 	}
 
 	@GetMapping("remover/{codigoDep}")
+	@ApiOperation(value="Remove Departamentos")
 	public ResponseEntity remover(@PathVariable Long codigoDep) {
 
 		Departamento depEncontrado = servicoDepartamento.BuscarPorCodigo(codigoDep);
@@ -99,7 +110,8 @@ public class ControllerDepartamento {
 		return ResponseEntity.ok(depExcluido);
 	}
 
-	@GetMapping("listar")
+	@GetMapping("listar")	
+	@ApiOperation(value="Lista os  Departamentos")
 	public List<DepartamentoDTO> listar() {
 		return utilsDTO.toCollecitonDTO(servicoDepartamento.ListarDepartamento());
 	}

@@ -3,11 +3,14 @@ package com.projeto.sgcp.utilitarios;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.stereotype.Service;
+
 import com.projeto.sgcp.dto.DepartamentoDTO;
 import com.projeto.sgcp.dto.GrupoDTO;
 import com.projeto.sgcp.entidade.Departamento;
 import com.projeto.sgcp.entidade.Grupo;
 
+@Service
 public class UtilsDTO {
 	
 	public DepartamentoDTO toDepartamento(Departamento depEncontrado) {

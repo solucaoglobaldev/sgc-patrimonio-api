@@ -28,6 +28,7 @@ public class Departamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codigoDepartamento;
 	
+	
 	private String nmDepartamento;
 	
 	@Enumerated(EnumType.STRING)

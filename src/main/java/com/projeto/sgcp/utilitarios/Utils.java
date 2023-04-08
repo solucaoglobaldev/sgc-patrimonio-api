@@ -1,9 +1,13 @@
 package com.projeto.sgcp.utilitarios;
 
+import org.springframework.stereotype.Service;
+
 import com.projeto.sgcp.Exception.RegraNegocio;
 import com.projeto.sgcp.entidade.Departamento;
 import com.projeto.sgcp.entidade.Grupo;
 
+
+@Service
 public class Utils {
 	
 	public void ValidaNomeGrupo(Grupo nomeGrupo) {
