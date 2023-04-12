@@ -19,7 +19,7 @@ public class UtilsDTO {
 
 		depDTO.setCodigoDepartamento(depEncontrado.getCodigoDepartamento());
 		
-		depDTO.setNmDepartamento(depEncontrado.getNmDepartamento());
+		depDTO.setNmDepartamento(depEncontrado.getNomeDepartamento());
 		
 		return depDTO;
 	}
@@ -37,9 +37,9 @@ public class UtilsDTO {
 		
 		GrupoDTO grupDTO = new GrupoDTO();		
 		
-		grupDTO.setCodGrupo(grupEncontrado.getCodGrupo());
+		grupDTO.setCodGrupo(grupEncontrado.getCodigoGrupo());
 		
-		grupDTO.setNmGrupo(grupEncontrado.getNmGrupo());
+		grupDTO.setNmGrupo(grupEncontrado.getNomeGrupo());
 		
 		return grupDTO;
 	}

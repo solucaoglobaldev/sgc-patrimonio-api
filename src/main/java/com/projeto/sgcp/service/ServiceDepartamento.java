@@ -24,13 +24,13 @@ public class ServiceDepartamento {
 	@Transactional
 	public Departamento SalvarDadosDepartamento(Departamento departamento) {
 
-		departamento.setStatusDep(Status.ATIVO);
+		departamento.setStatusDepartamento(Status.ATIVO);
 
 		utils.ValidarCamposDepartamento(departamento);
 		
-		utils.validaStringDepartamento(departamento.getNmDepartamento());
+		utils.validaStringDepartamento(departamento.getNomeDepartamento());
 
-		BuscarDepartamento(departamento.getNmDepartamento());
+		BuscarDepartamento(departamento.getNomeDepartamento());
 
 		return depRepositorio.save(departamento);
 	}
@@ -38,7 +38,7 @@ public class ServiceDepartamento {
 	@Transactional
 	public Departamento RemoverDepartamento(Departamento departamento) {
 
-		departamento.setStatusDep(Status.INATIVO);
+		departamento.setStatusDepartamento(Status.INATIVO);
 		return depRepositorio.save(departamento);
 
 	}
@@ -65,7 +65,7 @@ public class ServiceDepartamento {
 
 	@Transactional
 	public Departamento BuscarDepartamento(String departamento) {
-		return depRepositorio.findByNmDepartamento(departamento);
+		return depRepositorio.findBynomeDepartamento(departamento);
 	}
 
 	@Transactional

@@ -6,11 +6,11 @@ import com.projeto.sgcp.entidade.Departamento;
 
 public interface DepartamentoRepositorio extends JpaRepository<Departamento, Long> {
 	
-	Departamento findByNmDepartamento(String nmDepartamento);
+	Departamento findBynomeDepartamento(String nomeDepartamento);
 	
 	boolean existsBycodigoDepartamento (Long codDepartamento);
 	
-	Departamento findBycodigoDepartamento(Long codigoDep);
+	Departamento findBycodigoDepartamento(Long codigoDepartamento);
 	
 	
 }

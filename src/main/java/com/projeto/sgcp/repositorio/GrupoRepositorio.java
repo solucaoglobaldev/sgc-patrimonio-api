@@ -6,11 +6,11 @@ import com.projeto.sgcp.entidade.Grupo;
 
 public interface GrupoRepositorio extends JpaRepository<Grupo, Long> {
 	
-	Grupo findBycodGrupo(Long codigoGrupo);
+	Grupo findBycodigoGrupo(Long codigoGrupo);
 	
-	Grupo findBynmGrupo(String nmGrupo);
+	Grupo findBynomeGrupo(String nomeGrupo);
 	
-	boolean existsBycodGrupo(Long codGrupo);
+	boolean existsBycodigoGrupo(Long codigoGrupo);
 
 }
 

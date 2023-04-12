@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,14 @@ import com.projeto.sgcp.repositorio.GrupoRepositorio;
 import com.projeto.sgcp.service.ServiceGrupo;
 import com.projeto.sgcp.utilitarios.UtilsDTO;
 
-@RequestMapping("/grupos")
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@RequestMapping("api/grupos")
 @RestController
+@Api(value="API REST Grupos")
+@CrossOrigin(origins="*")
+
 public class ControllerGrupo {
 
 	@Autowired
@@ -33,13 +40,14 @@ public class ControllerGrupo {
 	private UtilsDTO utilsDTO;
 	
 	@PostMapping("adicionar")
+	@ApiOperation(value="Adicionar Grupos")
 	public ResponseEntity adicionar(@RequestBody GrupoDTO dtoGrupo) {
 
-		Grupo grupo = Grupo.builder().nmGrupo(dtoGrupo.getNmGrupo()).build();
+		Grupo grupo = Grupo.builder().nomeGrupo(dtoGrupo.getNmGrupo()).build();
 
 		try {
 
-			Grupo grupoEcontrado = servicoGrupo.BuscarPeloNome(grupo.getNmGrupo());
+			Grupo grupoEcontrado = servicoGrupo.BuscarPeloNome(grupo.getNomeGrupo());
 
 			if (grupoEcontrado != null) {
 				return ResponseEntity.badRequest().body("Grupo já cadastrado");
@@ -85,7 +93,7 @@ public class ControllerGrupo {
 			return ResponseEntity.badRequest().body("Grupo não encontrado");
 		}
 
-		grupoAtual.setNmGrupo(grupo.getNmGrupo());
+		grupoAtual.setNomeGrupo(grupo.getNomeGrupo());
 
 		grupoRepositorio.save(grupoAtual);
 

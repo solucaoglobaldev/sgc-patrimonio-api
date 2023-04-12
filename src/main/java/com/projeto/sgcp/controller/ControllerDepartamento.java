@@ -43,12 +43,12 @@ public class ControllerDepartamento {
 	@ApiOperation(value="Adicionar Departamentos")
 	public ResponseEntity adicionar(@RequestBody DepartamentoDTO DTOdepartamento) {
 
-		Departamento departamento = Departamento.builder().nmDepartamento(DTOdepartamento.getNmDepartamento()).build();
+		Departamento departamento = Departamento.builder().nomeDepartamento(DTOdepartamento.getNmDepartamento()).build();
 
 		try {
 
 			Departamento departamentoEcontrado = servicoDepartamento
-					.BuscarDepartamento(departamento.getNmDepartamento());
+					.BuscarDepartamento(departamento.getNomeDepartamento());
 
 			if (departamentoEcontrado != null) {
 				return ResponseEntity.badRequest().body("Departameto já cadastrado");
@@ -66,9 +66,9 @@ public class ControllerDepartamento {
 
 	}
 
-	@PutMapping("atulizarDepartamento/{codigoDp}")
+	@PutMapping("atualizarDepartamento/{codigoDp}")
 	@ApiOperation(value="Atualiza Departamentos")
-	public ResponseEntity AtulizarDepartamento(@PathVariable Long codigoDp, @RequestBody Departamento departamento) {
+	public ResponseEntity atualizarDepartamento(@PathVariable Long codigoDp, @RequestBody Departamento departamento) {
 
 		Departamento depAtual = servicoDepartamento.BuscarPorCodigo(codigoDp);
 
@@ -76,7 +76,7 @@ public class ControllerDepartamento {
 			return ResponseEntity.badRequest().body("Departameto não encontrado");
 		}
 
-		depAtual.setNmDepartamento(departamento.getNmDepartamento());
+		depAtual.setNomeDepartamento(departamento.getNomeDepartamento());
 
 		// BeanUtils.copyProperties(departamento, depAtual, "id");
 

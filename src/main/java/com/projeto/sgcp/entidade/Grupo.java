@@ -21,11 +21,11 @@ import lombok.NoArgsConstructor;
 public class Grupo {
 	
 	@Id
-	private Long codGrupo;	
+	private Long codigoGrupo;	
 	
-	private String nmGrupo;
+	private String nomeGrupo;
 	
 	@Enumerated(EnumType.ORDINAL)
-	private Status statusGrup;
+	private Status statusGrupo;
 
 }

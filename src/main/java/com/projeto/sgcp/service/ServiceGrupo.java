@@ -24,13 +24,13 @@ public class ServiceGrupo {
 	@Transactional
 	public Grupo SalvarDadosGrupo(Grupo grupo) {
 
-		grupo.setStatusGrup(Status.ATIVO);
+		grupo.setStatusGrupo(Status.ATIVO);
 
 		utils.ValidaCamposGrupo(grupo);
 
 		utils.ValidaNomeGrupo(grupo);
 
-		BuscarPeloNome(grupo.getNmGrupo());
+		BuscarPeloNome(grupo.getNomeGrupo());
 
 		return grupoRepositorio.save(grupo);
 
@@ -39,7 +39,7 @@ public class ServiceGrupo {
 	@Transactional
 	public Grupo RemoverGrupo(Grupo grupo) {
 
-		grupo.setStatusGrup(Status.INATIVO);
+		grupo.setStatusGrupo(Status.INATIVO);
 
 		return grupoRepositorio.save(grupo);
 
@@ -48,7 +48,7 @@ public class ServiceGrupo {
 	@Transactional
 	public Grupo AtualizarGrupo(Grupo grupo) {
 
-		Objects.requireNonNull(grupo.getCodGrupo());
+		Objects.requireNonNull(grupo.getCodigoGrupo());
 
 		utils.ValidaNomeGrupo(grupo);
 
@@ -66,13 +66,13 @@ public class ServiceGrupo {
 	@Transactional
 	public Grupo BuscarPeloNome(String nomeGrupo) {
 
-		return grupoRepositorio.findBynmGrupo(nomeGrupo);
+		return grupoRepositorio.findBynomeGrupo(nomeGrupo);
 	}
 
 	@Transactional
 	public Grupo BuscarGrupoPorCodigo(Long codGrupo) {
 
-		return grupoRepositorio.findBycodGrupo(codGrupo);
+		return grupoRepositorio.findBycodigoGrupo(codGrupo);
 	}
 
 }

@@ -12,7 +12,7 @@ public class Utils {
 	
 	public void ValidaNomeGrupo(Grupo nomeGrupo) {
 
-		if (!nomeGrupo.getNmGrupo().toString().matches("[A-Za-z]*")) {
+		if (!nomeGrupo.getNomeGrupo().toString().matches("[A-Za-z]*")) {
 
 			throw new RegraNegocio("Erro ao cadastrar, nome do grupo não pode constar numeros ou caracteres");
 		}
@@ -21,14 +21,14 @@ public class Utils {
 
 	public void ValidaCamposGrupo(Grupo grupoNome) {
 
-		if (grupoNome.getNmGrupo() == null || grupoNome.getNmGrupo().strip().equals("")) {
+		if (grupoNome.getNomeGrupo() == null || grupoNome.getNomeGrupo().strip().equals("")) {
 			throw new RegraNegocio("O nome grupo é obrigatório");
 		}
 	}
 	
 	public void ValidarCamposDepartamento(Departamento departamento) {
 
-		if (departamento.getNmDepartamento() == null || departamento.getNmDepartamento().trim().equals("")) {
+		if (departamento.getNomeDepartamento() == null || departamento.getNomeDepartamento().trim().equals("")) {
 
 			throw new RegraNegocio("O nome departamento é obrigatório");
 		}
