@@ -3,6 +3,7 @@
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
 			<item value="C:\Prototipo_Projeto\estudo"/>
+			<item value="C:\Prototipo_Projeto\bkp\estudo\estudo"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

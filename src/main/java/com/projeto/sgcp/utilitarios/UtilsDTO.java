@@ -5,26 +5,26 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.projeto.sgcp.dto.DepartamentoDTO;
+import com.projeto.sgcp.dto.ServicoDTO;
 import com.projeto.sgcp.dto.GrupoDTO;
-import com.projeto.sgcp.entidade.Departamento;
+import com.projeto.sgcp.entidade.Servico;
 import com.projeto.sgcp.entidade.Grupo;
 
 @Service
 public class UtilsDTO {
 	
-	public DepartamentoDTO toDepartamento(Departamento depEncontrado) {
+	public ServicoDTO toDepartamento(Servico depEncontrado) {
 		
-		DepartamentoDTO depDTO = new DepartamentoDTO();		
+		ServicoDTO servDTO = new ServicoDTO();		
 
-		depDTO.setCodigoDepartamento(depEncontrado.getCodigoDepartamento());
+		servDTO.setCodigoServico(depEncontrado.getCodigoServico());
 		
-		depDTO.setNmDepartamento(depEncontrado.getNomeDepartamento());
+		servDTO.setNmServico(depEncontrado.getNomeServico());
 		
-		return depDTO;
+		return servDTO;
 	}
 	
-	public List<DepartamentoDTO> toCollecitonDTO(List<Departamento> departamentos){
+	public List<ServicoDTO> toCollecitonDTO(List<Servico> departamentos){
 		
 		return departamentos.stream()
 				.map(departamento -> toDepartamento(departamento))

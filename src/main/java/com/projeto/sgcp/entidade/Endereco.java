@@ -23,9 +23,17 @@ public class Endereco {
 	@Column(name ="endereco_bairro")
 	private String bairro;
 	
-	@ManyToOne
-	@JoinColumn(name ="endereco_cidade_id")
-	private Cidade cidade;
+	@Column(name ="endereco_cidade")
+	private String cidade;
+	
+	@Column(name ="endereco_uf")
+	private String uf;
+	
+	@Column(name ="endereco_complemento")
+	private String complemento;
+	
+	@Column(name ="endereco_pontoReferencia")
+	private String pontoReferencia;
 	
 
 }

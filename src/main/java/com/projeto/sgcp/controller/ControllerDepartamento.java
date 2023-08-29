@@ -13,52 +13,48 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projeto.sgcp.Exception.RegraNegocio;
-import com.projeto.sgcp.dto.DepartamentoDTO;
-import com.projeto.sgcp.entidade.Departamento;
-import com.projeto.sgcp.repositorio.DepartamentoRepositorio;
-import com.projeto.sgcp.service.ServiceDepartamento;
+import com.projeto.sgcp.dto.ServicoDTO;
+import com.projeto.sgcp.entidade.Servico;
+import com.projeto.sgcp.exception.RegraNegocio;
+import com.projeto.sgcp.repositorio.ServicoRepositorio;
+import com.projeto.sgcp.service.ServiceServico;
 import com.projeto.sgcp.utilitarios.UtilsDTO;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@RequestMapping("api/departamentos")
+@RequestMapping("api/servicos")
 @RestController
-@Api(value="API REST Departamento")
-@CrossOrigin(origins="*")
-
 public class ControllerDepartamento {
 
 	@Autowired
-	private ServiceDepartamento servicoDepartamento;
+	private ServiceServico servicoServico;
 
 	@Autowired
-	private DepartamentoRepositorio depRepositorio;
+	private ServicoRepositorio servRepositorio;
 
 	@Autowired
 	private UtilsDTO utilsDTO;
 	
 	@PostMapping("adicionar")	
-	@ApiOperation(value="Adicionar Departamentos")
-	public ResponseEntity adicionar(@RequestBody DepartamentoDTO DTOdepartamento) {
+	public ResponseEntity adicionar(@RequestBody ServicoDTO DTOservico) {
 
-		Departamento departamento = Departamento.builder().nomeDepartamento(DTOdepartamento.getNmDepartamento()).build();
+		Servico servico = Servico.builder().nomeServico(DTOservico.getNmServico()).build();
 
 		try {
 
-			Departamento departamentoEcontrado = servicoDepartamento
-					.BuscarDepartamento(departamento.getNomeDepartamento());
+			Servico servicoEcontrado = servicoServico
+					.BuscarServico(servico.getNomeServico());
 
-			if (departamentoEcontrado != null) {
+			if (servicoEcontrado != null) {
 				return ResponseEntity.badRequest().body("Departameto já cadastrado");
 			}
 
-			Departamento depSalvo = servicoDepartamento.SalvarDadosDepartamento(departamento);
+			Servico servSalvo = servicoServico.SalvarDadosServico(servico);
 
 			// return new ResponseEntity(depSalvo, HttpStatus.CREATED);
 
-			return ResponseEntity.ok(depSalvo);
+			return ResponseEntity.ok(servSalvo);
 
 		} catch (RegraNegocio e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -66,54 +62,68 @@ public class ControllerDepartamento {
 
 	}
 
-	@PutMapping("atualizarDepartamento/{codigoDp}")
-	@ApiOperation(value="Atualiza Departamentos")
-	public ResponseEntity atualizarDepartamento(@PathVariable Long codigoDp, @RequestBody Departamento departamento) {
+	@PutMapping("atualizarServico/{codigoDp}")	
+	public ResponseEntity atualizarServico(@PathVariable Long codigoDp, @RequestBody ServicoDTO DTOservico) {
 
-		Departamento depAtual = servicoDepartamento.BuscarPorCodigo(codigoDp);
+		Servico depAtual = servicoServico.BuscarPorCodigo(codigoDp);
 
 		if (depAtual == null) {
-			return ResponseEntity.badRequest().body("Departameto não encontrado");
+			return ResponseEntity.badRequest().body("Serviço não encontrado");
 		}
 
-		depAtual.setNomeDepartamento(departamento.getNomeDepartamento());
+		depAtual.setNomeServico(DTOservico.getNmServico());
 
 		// BeanUtils.copyProperties(departamento, depAtual, "id");
 
-		depRepositorio.save(depAtual);
+		servRepositorio.save(depAtual);
 
 		return ResponseEntity.ok(depAtual);
 	}
 
 	@GetMapping("buscarPorCodigo/{codigo}")
-	@ApiOperation(value="Busca Departamentos por Codigo")
-	public DepartamentoDTO buscarPorCodigo(@PathVariable Long codigo) {
-		Departamento depEncontrado = servicoDepartamento.BuscarPorCodigo(codigo);
+	public ServicoDTO buscarPorCodigo(@PathVariable Long codigo) {
+		Servico servEncontrado = servicoServico.BuscarPorCodigo(codigo);
 
 		// DepartamentoDTO depDTO = toDepartamento(depEncontrado);
 
-		return utilsDTO.toDepartamento(depEncontrado);
+		return utilsDTO.toDepartamento(servEncontrado);
 	}
 
-	@GetMapping("remover/{codigoDep}")
-	@ApiOperation(value="Remove Departamentos")
+	@GetMapping("remover/{codigoDep}")	
 	public ResponseEntity remover(@PathVariable Long codigoDep) {
 
-		Departamento depEncontrado = servicoDepartamento.BuscarPorCodigo(codigoDep);
+		Servico servEncontrado = servicoServico.BuscarPorCodigo(codigoDep);
 
-		if (depEncontrado == null) {
-			return ResponseEntity.badRequest().body("Departamento não encontrado");
+		if (servEncontrado == null) {
+			return ResponseEntity.badRequest().body("Serviço não encontrado");
 		}
 
-		Departamento depExcluido = servicoDepartamento.RemoverDepartamento(depEncontrado);
+		Servico servExcluido = servicoServico.RemoverServico(servEncontrado);
 
-		return ResponseEntity.ok(depExcluido);
+		return ResponseEntity.ok(servExcluido);
 	}
 
+	@GetMapping("ativar/{codigoSer}")
+	public ResponseEntity ativar(@PathVariable Long codigoSer) {
+		
+		Servico servicoEncontrado = servicoServico.BuscarPorCodigo(codigoSer);
+		
+		if (servicoEncontrado == null) {
+			return ResponseEntity.badRequest().body("Serviço não encontrado");
+		}
+		
+		Servico servAtivado = servicoServico.AtivarServico(servicoEncontrado);
+		
+		return ResponseEntity.ok(servAtivado);
+		
+	}	
+	
+	
 	@GetMapping("listar")	
-	@ApiOperation(value="Lista os  Departamentos")
-	public List<DepartamentoDTO> listar() {
-		return utilsDTO.toCollecitonDTO(servicoDepartamento.ListarDepartamento());
+	public List<Servico> listar() {
+		
+		return servicoServico.ListarServico();
+		//return utilsDTO.toCollecitonDTO(servicoDepartamento.ListarDepartamento());
 	}
 
 	

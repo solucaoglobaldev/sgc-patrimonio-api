@@ -2,8 +2,8 @@ package com.projeto.sgcp.utilitarios;
 
 import org.springframework.stereotype.Service;
 
-import com.projeto.sgcp.Exception.RegraNegocio;
-import com.projeto.sgcp.entidade.Departamento;
+import com.projeto.sgcp.entidade.Servico;
+import com.projeto.sgcp.exception.RegraNegocio;
 import com.projeto.sgcp.entidade.Grupo;
 
 
@@ -26,9 +26,9 @@ public class Utils {
 		}
 	}
 	
-	public void ValidarCamposDepartamento(Departamento departamento) {
+	public void ValidarCamposDepartamento(Servico departamento) {
 
-		if (departamento.getNomeDepartamento() == null || departamento.getNomeDepartamento().trim().equals("")) {
+		if (departamento.getNomeServico() == null || departamento.getNomeServico().trim().equals("")) {
 
 			throw new RegraNegocio("O nome departamento é obrigatório");
 		}

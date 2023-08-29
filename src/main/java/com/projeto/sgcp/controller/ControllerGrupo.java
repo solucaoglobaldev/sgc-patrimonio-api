@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projeto.sgcp.Exception.RegraNegocio;
 import com.projeto.sgcp.dto.GrupoDTO;
 import com.projeto.sgcp.entidade.Grupo;
+import com.projeto.sgcp.exception.RegraNegocio;
 import com.projeto.sgcp.repositorio.GrupoRepositorio;
 import com.projeto.sgcp.service.ServiceGrupo;
 import com.projeto.sgcp.utilitarios.UtilsDTO;
